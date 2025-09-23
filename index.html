@@ -1,1 +1,200 @@
-歡迎來到gguuaann的網站
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+    <style>
+        body {
+            font-family: 'Cinzel', 'Arial', serif;
+            background: linear-gradient(135deg, #e2c290 0%, #a18f6b 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 16px rgba(80,60,30,0.15);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid #a18f6b;
+            position: relative;
+            z-index: 3;
+        }
+        h1 {
+            color: #6b4f1d;
+            font-family: 'Cinzel', 'Arial', serif;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px #e2c290;
+        }
+        p {
+            color: #4e3b1a;
+            font-size: 1.2em;
+        }
+        .fantasy-icon {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes sparkle {
+            0% { filter: drop-shadow(0 0 0px gold); }
+            50% { filter: drop-shadow(0 0 16px gold); }
+            100% { filter: drop-shadow(0 0 0px gold); }
+        }
+        .fantasy-icon {
+            animation: sparkle 2s infinite;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .container {
+            animation: fadeInUp 1.2s ease;
+        }
+        .magic {
+            position: absolute;
+            left: 50%;
+            top: 80px;
+            transform: translateX(-50%);
+            pointer-events: none;
+            width: 120px;
+            height: 120px;
+            z-index: 1;
+            animation: sparkle 1.5s infinite;
+        }
+        @keyframes swordFlash {
+            0% { opacity: 0; transform: scaleX(0.5) rotate(-10deg); }
+            30% { opacity: 1; transform: scaleX(1.2) rotate(5deg); }
+            70% { opacity: 1; transform: scaleX(1) rotate(-5deg); }
+            100% { opacity: 0; transform: scaleX(0.5) rotate(-10deg); }
+        }
+        .sword-flash {
+            position: absolute;
+            left: 50%;
+            top: 180px;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 40px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            animation: swordFlash 2.5s infinite;
+        }
+        .sword-flash line {
+            stroke: #fffbe6;
+            stroke-width: 8;
+            filter: drop-shadow(0 0 12px #ffe066);
+        }
+        .sword-flash polygon {
+            fill: #ffe066;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="magic-particles" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:auto;"></canvas>
+    <svg class="magic" viewBox="0 0 120 120" style="position:fixed;left:50%;top:80px;transform:translateX(-50%);z-index:2;pointer-events:auto;"></svg>
+    <svg class="sword-flash" viewBox="0 0 180 40" style="position:fixed;left:50%;top:180px;transform:translateX(-50%);z-index:2;pointer-events:auto;"></svg>
+    <svg class="sword-flash" viewBox="0 0 180 40" style="position:fixed;left:30%;top:120px;transform:rotate(-15deg);z-index:2;pointer-events:auto;"></svg>
+    <svg class="sword-flash" viewBox="0 0 180 40" style="position:fixed;left:70%;top:220px;transform:rotate(20deg);z-index:2;pointer-events:auto;"></svg>
+    <svg class="sword-flash" viewBox="0 0 180 40" style="position:fixed;left:40%;top:300px;transform:rotate(-30deg);z-index:2;pointer-events:auto;"></svg>
+    <svg class="sword-flash" viewBox="0 0 180 40" style="position:fixed;left:60%;top:60px;transform:rotate(10deg);z-index:2;pointer-events:auto;"></svg>
+    <div class="container" style="position:relative;z-index:3;">
+        <!-- 移除城堡圖片 -->
+        <h1>歡迎來到奇幻王國</h1>
+        <p>這是您的中世紀奇幻風首頁。探索魔法、騎士與傳說的世界！</p>
+    </div>
+    <script>
+    // 魔法粒子特效（滑鼠互動）
+    const canvas = document.getElementById('magic-particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function createParticle(x, y) {
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = 80 + Math.random() * 60;
+        x = x || window.innerWidth / 2 + Math.cos(angle) * radius;
+        y = y || 160 + Math.sin(angle) * radius;
+        return {
+            x,
+            y,
+            r: 3 + Math.random() * 4,
+            alpha: 0.7 + Math.random() * 0.3,
+            dx: (Math.random() - 0.5) * 1.2,
+            dy: (Math.random() - 0.5) * 1.2,
+            life: 60 + Math.random() * 40
+        };
+    }
+    function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+            ctx.fillStyle = `rgba(${220+Math.random()*35},${200+Math.random()*55},${120+Math.random()*80},1)`;
+            ctx.shadowColor = '#ffe066';
+            ctx.shadowBlur = 12;
+            ctx.fill();
+            ctx.restore();
+        });
+    }
+    function updateParticles() {
+        particles.forEach(p => {
+            p.x += p.dx;
+            p.y += p.dy;
+            p.life--;
+            p.alpha -= 0.008;
+        });
+        particles = particles.filter(p => p.life > 0 && p.alpha > 0);
+        while (particles.length < 32) {
+            particles.push(createParticle());
+        }
+    }
+    function animate() {
+        updateParticles();
+        drawParticles();
+        requestAnimationFrame(animate);
+    }
+    animate();
+    canvas.addEventListener('mousemove', function(e) {
+        for(let i=0;i<6;i++) {
+            particles.push(createParticle(e.clientX, e.clientY));
+        }
+    });
+    canvas.addEventListener('click', function(e) {
+        for(let i=0;i<16;i++) {
+            particles.push(createParticle(e.clientX, e.clientY));
+        }
+    });
+    // 劍光互動
+    const swordFlash = document.querySelector('.sword-flash');
+    swordFlash.addEventListener('mouseenter', function() {
+        swordFlash.style.animationDuration = '0.8s';
+    });
+    swordFlash.addEventListener('mouseleave', function() {
+        swordFlash.style.animationDuration = '2.5s';
+    });
+    // 魔法光圈互動
+    const magic = document.querySelector('.magic');
+    magic.addEventListener('mouseenter', function() {
+        magic.style.animationDuration = '0.6s';
+    });
+    magic.addEventListener('mouseleave', function() {
+        magic.style.animationDuration = '1.5s';
+    });
+    </script>
+</body>
+</html>
+
+
