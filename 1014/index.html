@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名片</title>
+    <style>
+        body {
+            background: repeating-linear-gradient(135deg, #d7000f 0px, #d7000f 40px, #ffde00 40px, #ffde00 80px);
+            font-family: 'Noto Serif TC', 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 12px 36px rgba(215,0,15,0.22), 0 0 0 8px #ffde0044;
+            border-radius: 32px;
+            border: 6px double #d7000f;
+            display: flex;
+            width: 440px;
+            max-width: 98vw;
+            padding: 40px 40px 32px 40px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            animation: card-pop 1.2s cubic-bezier(.68,-0.55,.27,1.55) 1;
+        }
+        @keyframes card-pop {
+            0% { transform: scale(0.7) rotate(-8deg); opacity: 0; }
+            60% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_China.svg') no-repeat right 24px top 24px,
+                        radial-gradient(circle at 20% 80%, #ffde0088 0%, #fff0 60%);
+            background-size: 80px 54px, 300px 200px;
+            opacity: 0.12;
+        }
+        .card-photo {
+            flex: 0 0 120px;
+            margin-right: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .card-photo img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 0;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            border: 6px solid #ffde00;
+            box-shadow: 0 4px 16px #d7000f55, 0 0 0 8px #fffde0;
+            background: #fffbe8;
+            transition: transform 0.3s;
+        }
+        .card-photo img:hover {
+            transform: scale(1.08) rotate(-6deg);
+            box-shadow: 0 8px 32px #d7000f99, 0 0 0 12px #ffde0088;
+        }
+        .card-photo::after {
+            content: "福";
+            position: absolute;
+            bottom: -18px; right: -18px;
+            font-size: 2.2em;
+            color: #d7000f;
+            background: #ffde00;
+            border-radius: 50%;
+            padding: 8px 16px;
+            box-shadow: 0 2px 8px #d7000f44;
+            font-family: 'Noto Serif TC', serif;
+            border: 2px solid #d7000f;
+            opacity: 0.85;
+        }
+        .card-info {
+            flex: 1;
+        }
+        .card-info h2 {
+            margin: 0 0 8px 0;
+            font-size: 2.2em;
+            color: #d7000f;
+            font-family: 'Noto Serif TC', 'Segoe UI', Arial, sans-serif;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0 #ffde00, 3px 3px 8px #d7000f44;
+        }
+        .card-info p {
+            margin: 4px 0;
+            color: #b3000a;
+            font-size: 1.15em;
+            font-family: 'Noto Serif TC', 'Segoe UI', Arial, sans-serif;
+        }
+        .card-info p:first-of-type {
+            font-weight: bold;
+            color: #ffde00;
+            background: linear-gradient(90deg, #d7000f 60%, #ffde00 100%);
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #d7000f33;
+            border: 2px solid #ffde00;
+        }
+        .card-info p:last-of-type {
+            font-style: italic;
+            color: #d7000f;
+        }
+        .card-info .stars {
+            margin-top: 18px;
+            text-align: left;
+        }
+        .card-info .stars span {
+            color: #ffde00;
+            font-size: 1.5em;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 2px #d7000f);
+            margin-right: 2px;
+            animation: star-bounce 1.2s infinite alternate;
+        }
+        @keyframes star-bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px) scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-photo">
+            <img src="IMG20251014092120.jpg">
+        </div>
+        <div class="card-info">
+            <h2>林冠呈</h2>
+            <p>前端工程師</p>
+            <p>電話：0912-345-678</p>
+            <p>Email：gguuaann@example.com</p>
+            <div class="stars">
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
