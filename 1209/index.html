@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本網站架構</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        nav { background: #333; color: #fff; padding: 1em; }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        nav ul li { margin-right: 1.5em; }
+        nav ul li a { color: #fff; text-decoration: none; }
+        .banner { background: #4a90e2; color: #fff; text-align: center; padding: 3em 1em; }
+        main { padding: 2em 1em; min-height: 300px; }
+        footer {
+            background: linear-gradient(to bottom, #f0d2f3 0%, #f5e9c8 100%);#deedf5
+            color: #fff;
+            text-align: center;
+            padding: 2em 0 1em 0;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 900px;
+            margin: 0 auto;
+            gap: 2em;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 180px;
+        }
+        .footer-col h3 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            color: #000000;
+        }
+        .footer-col a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- (Navigation) -->
+    <nav>
+        <ul>
+            <li><a href="#">首頁</a></li>
+            <li><a href="#about">關於我們</a></li>
+            <li><a href="#services">服務</a></li>
+            <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+    </nav>
+    <!-- (Banner) -->
+    <div class="banner">
+        <h1>歡迎來到我的網站</h1>
+        <p>這裡是網站的橫幅區域（Banner）</p>
+    </div>
+    <!--  (Main) -->
+    <main>
+        <h2>主要內容區</h2>
+        <p>這裡是網站的主要內容。</p>
+    </main>
+    <!-- (Footer) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>就讀系所</h3>
+                <p>國立台北教育大學 <br>數位科技設計學系</p>
+            </div>
+            <div class="footer-col">
+                <h3>聯絡方式</h3>
+                <p>Email: example@mail.com<br>電話: 0800-000-123</p>
+                <p>地址:新北市新莊區</p>
+            </div>
+            <div class="footer-col">
+                <h3>社群網站</h3>
+                <a href="https://facebook.com" target="_blank" style="color:#000000; margin-right:10px;">FB:林冠呈</a>
+                <br>
+                <a href="https://instagram.com" target="_blank" style="color:#000000;">IG:linchem_117</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
