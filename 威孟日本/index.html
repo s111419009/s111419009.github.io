@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ 威孟幸福去日本 ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes heart-bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .animate-heart { animation: heart-bounce 2s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-pink-50 min-h-screen">
+
+    <div class="max-w-md mx-auto bg-pink-50 shadow-2xl min-h-screen flex flex-col relative overflow-hidden">
+        
+        <!-- 背景裝飾愛心 -->
+        <div class="absolute top-20 right-4 text-pink-200 opacity-50 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+
+        <!-- 標題欄 -->
+        <header class="bg-gradient-to-r from-pink-400 to-rose-500 text-white p-6 shadow-md text-center relative z-20">
+            <h1 class="text-2xl font-black drop-shadow-sm">❤️ 威孟幸福去日本 ❤️</h1>
+            <p class="text-xs font-bold opacity-90 mt-1">全行程補完計畫 · 2025/01/21 - 01/27</p>
+        </header>
+
+        <!-- 內容呈現區 -->
+        <main id="content" class="flex-1 overflow-y-auto pb-32 px-4 pt-4 z-10"></main>
+
+        <!-- 底部導覽列 -->
+        <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[360px] bg-white/95 backdrop-blur-xl border-2 border-pink-100 py-4 flex justify-around items-center rounded-full shadow-lg z-50">
+            <button onclick="switchTab('itinerary')" id="nav-itinerary" class="flex-1 flex flex-col items-center gap-1 transition-all text-rose-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span class="text-[9px] font-black">幸福行程</span>
+            </button>
+            <button onclick="switchTab('checklist')" id="nav-checklist" class="flex-1 flex flex-col items-center gap-1 transition-all text-rose-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="text-[9px] font-black">幸福清單</span>
+            </button>
+            <button onclick="switchTab('budget')" id="nav-budget" class="flex-1 flex flex-col items-center gap-1 transition-all text-rose-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span class="text-[9px] font-black">幸福預算</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        let activeTab = 'itinerary';
+        let selectedDay = 0;
+
+        const itineraryData = [
+            {
+                date: '1/21 (Day 1)',
+                title: '💖 幸福啟程：抵達淺草',
+                activities: [
+                    { time: '09:00', location: '桃園機場第一航廈', desc: '威孟幸福最晚抵達時間！', transport: '起飛', color: 'bg-orange-500' },
+                    { time: '16:15', location: '成田機場', desc: '抵達日本 ❤️', transport: '抵達', color: 'bg-orange-500' },
+                    { time: '17:30', location: '成田機場', desc: '搭乘 Skyaccess (往西馬込) 至淺草', transport: 'Skyaccess', color: 'bg-orange-500' },
+                    { time: '18:30', location: 'Minn Asakusa Kappabashi', desc: '飯店 Check-in ❤️' },
+                    { time: '19:30', location: '淺草地下街', desc: '環境認識、晚餐吃米久本店 ❤️' }
+                ]
+            },
+            {
+                date: '1/22 (Day 2)',
+                title: '💖 淺草、秋葉原與晴空塔',
+                activities: [
+                    { time: '10:00', location: '淺草寺', desc: '威孟幸福漫步 ❤️' },
+                    { time: '12:00', location: '浅草もんじゃもんろう', desc: '幸福文字燒午餐' },
+                    { time: '13:00', location: '上野站 Yamashiroya', desc: '銀座線(G19)至上野逛玩具店 ❤️', transport: '銀座線', color: 'bg-orange-400' },
+                    { time: '14:00', location: '秋葉原電器街', desc: '銀座線(G16)至末廣町再步行 ❤️', transport: '銀座線', color: 'bg-orange-400' },
+                    { time: '18:00', location: '東京晴空塔', desc: '晚餐 Tonkatsu Yutaka ❤️', transport: '淺草線', color: 'bg-rose-500' }
+                ]
+            },
+            {
+                date: '1/23 (Day 3)',
+                title: '💖 夢幻迪士尼全日',
+                activities: [
+                    { time: '07:30', location: '東京車站', desc: '銀座線(京橋站)步行至東京轉京葉線', transport: '京葉線', color: 'bg-red-600' },
+                    { time: '08:30', location: '舞濱站', desc: '抵達迪士尼 ❤️', transport: '京葉線', color: 'bg-red-600' },
+                    { time: '09:00', location: '東京迪士尼樂園', desc: '威孟幸福爽玩整天 ❤️' },
+                    { time: '21:00', location: '入谷站 (東京)', desc: '京葉線轉日比谷線回飯店 ❤️' }
+                ]
+            },
+            {
+                date: '1/24 (Day 4)',
+                title: '💖 高尾山自然與溫泉',
+                activities: [
+                    { time: '09:30', location: '新宿站', desc: '御徒町搭山手線轉京王 Liner 快速', transport: '京王線', color: 'bg-pink-500' },
+                    { time: '11:00', location: '高尾山口站', desc: '搭乘纜車(約1小時) ❤️' },
+                    { time: '12:00', location: '十一丁目茶屋', desc: '午餐與天狗燒 ❤️' },
+                    { time: '13:30', location: '高尾山1號步道', desc: '威孟幸福登頂(單程1.5時) ❤️' },
+                    { time: '17:00', location: '極樂湯', desc: '京王高尾山溫泉 ❤️' }
+                ]
+            },
+            {
+                date: '1/25 (Day 5)',
+                title: '💖 江之島與鐮倉散策',
+                activities: [
+                    { time: '09:00', location: '藤澤站', desc: '鶯谷搭京濱東北至品川轉東海道本線', transport: 'JR', color: 'bg-blue-600' },
+                    { time: '10:30', location: '江之島', desc: '海鹽霜淇淋、龍蝦仙貝 ❤️' },
+                    { time: '15:00', location: '鐮倉高校前站', desc: '江之電聖地拍照 ❤️', transport: '江之電', color: 'bg-green-700' },
+                    { time: '16:00', location: '小町通商店街', desc: '威孟幸福逛街 ❤️' },
+                    { time: '17:30', location: '鶴岡八幡宮', desc: '幸福參拜 ❤️' }
+                ]
+            },
+            {
+                date: '1/26 (Day 6)',
+                title: '💖 下北澤、明治神宮與澀谷',
+                activities: [
+                    { time: '10:00', location: '明治神宮', desc: '鶯谷搭山手線至代代木 ❤️' },
+                    { time: '11:30', location: '下北澤南口商店街', desc: '孤獨搖滾聖地巡禮 ❤️', transport: '千代田線', color: 'bg-emerald-500' },
+                    { time: '15:00', location: '竹下通 / 表參道', desc: '京王井之頭線至澀谷步行 20 分 ❤️' },
+                    { time: '18:30', location: '澀谷寶可夢中心', desc: '唐吉訶德逛街 ❤️' },
+                    { time: '20:40', location: 'SHIBUYA SKY', desc: '俯瞰東京幸福夜景 ❤️' }
+                ]
+            },
+            {
+                date: '1/27 (Day 7)',
+                title: '💖 四谷、東京鐵塔與歸航',
+                activities: [
+                    { time: '10:00', location: '上野站', desc: '退房、寄放行李 ❤️' },
+                    { time: '11:00', location: '四谷須賀神社', desc: '丸之內線至四谷三丁目 ❤️' },
+                    { time: '12:30', location: '麻布台之丘', desc: 'HISAYA KYOTO 甜點 ❤️' },
+                    { time: '15:00', location: '東京鐵塔', desc: '芝公園拍照 ❤️' },
+                    { time: '18:00', location: '成田機場', desc: '威孟幸福一定要到機場！ ❤️' }
+                ]
+            }
+        ];
+
+        const checklistData = {
+            '💖 重要物品': ['護照影本 (威孟幸福貼紙)', '身分證件', '魔法小卡 (刷出幸福)', '日幣現金 (55,000円+)', '機票與登機證'],
+            '📱 3C 電子': ['拍滿照片的手機', '行動電源 (電力滿滿)', 'SIM 卡 (放閃不間斷)'],
+            '🧣 幸福衣物': ['超厚外套 (0~5°C)', '防水手套 (高尾山下雪用)', '護唇膏 (防乾燥)']
+        };
+
+        const budgetData = [
+            { label: '機票 + 飯店', val: '24,000 TWD', sub: '幸福基地準備完成' },
+            { label: '交通費 (地鐵)', val: '10,000 JPY', sub: '幸福交通不間斷' },
+            { label: '飲食花費', val: '30,000 JPY', sub: '威孟幸福吃飽飽' },
+            { label: '門票 (預估)', val: '12,300+ JPY', sub: '幸福視覺盛宴' }
+        ];
+
+        function switchTab(tab) {
+            activeTab = tab;
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('text-rose-500');
+                btn.classList.add('text-rose-200');
+            });
+            document.getElementById(`nav-${tab}`).classList.add('text-rose-500');
+            render();
+        }
+
+        function switchDay(day) {
+            selectedDay = day;
+            render();
+        }
+
+        function render() {
+            const container = document.getElementById('content');
+            container.innerHTML = '';
+
+            if (activeTab === 'itinerary') {
+                let dayButtons = `<div class="flex gap-3 overflow-x-auto pb-4 no-scrollbar">`;
+                itineraryData.forEach((_, idx) => {
+                    const isActive = selectedDay === idx;
+                    dayButtons += `
+                        <button onclick="switchDay(${idx})" class="flex-shrink-0 w-16 h-18 rounded-3xl flex flex-col items-center justify-center transition-all ${isActive ? 'bg-rose-500 text-white shadow-lg ring-4 ring-pink-200' : 'bg-white text-rose-300'}">
+                            <span class="text-[10px] font-black">DAY</span>
+                            <span class="text-xl font-black">${idx + 1}</span>
+                        </button>`;
+                });
+                dayButtons += `</div>`;
+
+                const dayData = itineraryData[selectedDay];
+                let timeline = `
+                    <div class="bg-white/85 backdrop-blur-sm rounded-[2.5rem] p-6 shadow-xl border-4 border-white">
+                        <div class="text-center mb-6">
+                            <span class="text-rose-500 font-black text-xs uppercase tracking-widest">❤️ 威孟幸福細節不漏接 ❤️</span>
+                            <h2 class="text-xl font-black text-gray-800 mt-1">${dayData.title}</h2>
+                            <p class="text-xs text-rose-400 font-bold mt-1">${dayData.date}</p>
+                        </div>
+                        <div class="space-y-6 relative">`;
+                
+                dayData.activities.forEach((act, i) => {
+                    timeline += `
+                        <div class="flex gap-4 group">
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center text-rose-500 shadow-inner">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.05 3 5.5l7 7Z"/></svg>
+                                </div>
+                                ${i !== dayData.activities.length - 1 ? '<div class="w-0.5 h-full bg-rose-50 mt-2"></div>' : ''}
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-[10px] font-black bg-rose-500 text-white px-2 py-0.5 rounded-full">${act.time}</span>
+                                    ${act.transport ? `<span class="text-[9px] font-black ${act.color} text-white px-2 py-0.5 rounded-md">${act.transport}</span>` : ''}
+                                </div>
+                                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.location)}" target="_blank" class="block bg-white p-3 rounded-2xl border border-pink-50 shadow-sm hover:border-rose-300 transition-all">
+                                    <div class="flex justify-between items-center">
+                                        <p class="font-black text-gray-800 text-sm">${act.location}</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-rose-300"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    </div>
+                                    <p class="text-[11px] text-gray-500 mt-1 font-bold italic">威孟幸福：${act.desc} ❤️</p>
+                                </a>
+                            </div>
+                        </div>`;
+                });
+                timeline += `</div></div>`;
+                container.innerHTML = dayButtons + timeline;
+
+            } else if (activeTab === 'checklist') {
+                let html = `<h2 class="text-2xl font-black px-2 mb-4 text-rose-600 flex items-center gap-2">✨ 威孟幸福準備清單</h2>`;
+                for (const [cat, items] of Object.entries(checklistData)) {
+                    html += `
+                        <div class="bg-white rounded-3xl p-5 shadow-lg border-2 border-pink-100 mb-6">
+                            <h3 class="font-black text-rose-400 text-xs mb-4 uppercase tracking-widest">${cat}</h3>
+                            <div class="space-y-4">
+                                ${items.map(item => `
+                                    <div class="flex items-center gap-3 cursor-pointer group" onclick="this.querySelector('.check-box').classList.toggle('bg-rose-500'); this.querySelector('.check-text').classList.toggle('line-through'); this.querySelector('.check-text').classList.toggle('text-rose-200')">
+                                        <div class="check-box w-7 h-7 rounded-xl border-2 border-rose-100 bg-rose-50/50 flex items-center justify-center transition-all">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.05 3 5.5l7 7Z"/></svg>
+                                        </div>
+                                        <span class="check-text text-sm font-bold text-gray-700 transition-all">${item}</span>
+                                    </div>`).join('')}
+                            </div>
+                        </div>`;
+                }
+                container.innerHTML = html;
+
+            } else if (activeTab === 'budget') {
+                let cards = `
+                    <div class="py-8 bg-rose-500 rounded-[3rem] text-white shadow-lg text-center mb-6">
+                        <p class="text-xs font-black tracking-tighter uppercase">總幸福預備金 (55,000円+)</p>
+                        <h2 class="text-4xl font-black italic tracking-wider">威孟幸福價 ❤️</h2>
+                        <p class="text-[10px] mt-2 font-bold opacity-80">含交通、門票、所有美食</p>
+                    </div>
+                    <div class="space-y-3">`;
+                budgetData.forEach(item => {
+                    cards += `
+                        <div class="bg-white p-4 rounded-3xl shadow-sm border border-pink-50 flex justify-between items-center">
+                            <div class="text-left">
+                                <p class="text-[10px] font-black text-rose-300 uppercase">${item.label}</p>
+                                <p class="font-black text-gray-700">${item.val}</p>
+                            </div>
+                            <span class="text-[9px] font-black text-rose-500 bg-rose-50 px-3 py-1 rounded-full italic">${item.sub} ❤️</span>
+                        </div>`;
+                });
+                cards += `</div>`;
+                container.innerHTML = cards;
+            }
+        }
+
+        // 初始化
+        render();
+    </script>
+</body>
+</html>
