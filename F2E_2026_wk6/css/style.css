@@ -1,0 +1,189 @@
+/* 基本重設與色票變數 */
+:root {
+  --primary: #778A50;       /* 橄欖綠主色 */
+  --bg-color: #EDF2C5;      /* 網頁淺綠底色 */
+  --content-bg: #F7FBDA;    /* 內容卡片米黃底色 */
+  --content-text: #7D7D7D;  /* 內文深灰色 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--content-text);
+}
+
+/* 版心容器 */
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  padding-top: 36px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.logo {
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: normal;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--primary);
+}
+
+.btn-outline {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--primary);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 60px;
+  padding: 12px 30px;
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: var(--bg-color);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%;
+}
+
+/* 主視覺 Banner */
+.banner {
+  margin-bottom: 30px;
+}
+
+.banner img {
+  width: 100%;
+  height: 448px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 下方雙欄內容區 */
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 52px;
+  margin-bottom: 35px;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  background-color: var(--primary);
+  color: var(--bg-color);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%;
+  padding: 10px 30px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
+/* 左欄：三張蔬菜卡片 */
+.veg-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex: 1;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.card-text {
+  background-color: var(--content-bg);
+  padding: 12px;
+  font-size: 12px;
+  line-height: 150%;
+  flex: 1;
+}
+
+/* 右欄：Contact 區塊 */
+.contact-box {
+  background-color: var(--content-bg);
+  padding: 16px;
+  font-size: 12px;
+  line-height: 150%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-text p {
+  margin-bottom: 12px;
+}
+
+.contact-line {
+  border: none;
+  border-top: 1px solid var(--content-text);
+  margin: 12px 0;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--primary);
+  color: var(--bg-color);
+  text-align: center;
+  padding: 24px 0;
+  font-size: 12px;
+  line-height: 150%;
+}
